@@ -117,6 +117,36 @@
     Your browser does not support the audio element.
   </audio>
 
+	<script>
+  const rain = document.getElementById("rain-sound");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Try to play muted
+    const playPromise = rain.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Unmute after 1.5s
+        setTimeout(() => {
+          rain.muted = false;
+          rain.volume = 0.4;
+        }, 1500);
+      }).catch(err => {
+        console.log("Autoplay blocked:", err);
+        // fallback: show manual button
+        document.getElementById("rain-btn").style.display = "block";
+      });
+    }
+  });
+
+  // Button fallback
+  document.getElementById("rain-btn").addEventListener("click", () => {
+    rain.muted = false;
+    rain.volume = 0.4;
+    rain.play();
+    document.getElementById("rain-btn").style.display = "none";
+  });
+</script>
+
   <!-- Lightning overlay -->
   <div class="lightning" id="lightning"></div>
 
@@ -163,4 +193,5 @@
   </script>
 </body>
 </html>
+
 
