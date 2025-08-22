@@ -48,6 +48,7 @@
       text-decoration: none;
       display: block;
       margin: 0.3rem 0;
+      cursor: pointer;
     }
     .archive a:hover {
       text-decoration: underline;
@@ -87,17 +88,16 @@
       left: 20px;
       background: #f4f1e8;
       color: #2c2c2c;
-      border: none;
+      padding: 10px 15px;
       border-radius: 8px;
-      padding: 10px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      display: none;
-      z-index: 5;
+      font-size: 14px;
+      font-weight: bold;
+      z-index: 10;
     }
     #rain-btn:hover {
-      background: #e1ddd3;
+      background: #e1d9c9;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
@@ -105,99 +105,138 @@
 <body>
   <div class="container">
     <h1>💌 A Letter for my Princess</h1>
-    <div class="letter-box">
-      <h2>Day 1 — August 22, 2025</h2>
-      <p>My dearest princess,</p>
-      <p> As I sit here with my broken leg, rotting away in bed, I think of you. I know right now you might be returning back home from your busy day of shopping. I hope you had fun? I hope you bought a whole lot of things my princess. </p>
-
-      <p>Scratch that, you just told me you bought a lot of things. I love that for you. You deserve all the best things in this life. You're my sweetest, cutest little baby girl. </p>
-
-      <p>I really don't know where I would be without you. I love you, so much. I know you are sometimes disappointed in me for not doing much. I am a man of inaction, but you my baby, you make me want to do everything I can to make things special for you. To take care of you, to love you and cherish you, and to let you know how much I love you. </p>
-
-      <p>We're coming up on 3 years now of dating each other. Isn't that wild? It feels like a lifetime, but also it feels like we just started. You've changed my life for the better. You make me want to be a better man, for you. You deserve the best, and I feel like I've got a long way to go to be the man you deserve, but I will get there. This ain't a sob story. I will be the man you love, and you'll be with for the rest of your life. </p>
-
-      <p>Anyways, this might be a little gay? I don't know. Hope you like this virtual space I got going for you my baby. Love you so much. </p>
-
-      <p>I will keep doing this for as long as I can. And I'll keep loving you for much longer. </p>
-
-      <p>With all my love</p>
-      <p>Samsie</p>
+    <div class="letter-box" id="letter-box">
+      <!-- Dynamic letter content will load here -->
     </div>
-    <p class="note">Come back at 12pm tomorrow princess, for your new letter!</p>
+    <p class="note" id="note"></p>
 
     <div class="archive">
       <h3>📜 Archive</h3>
-      <p>No archived letters yet — this is just the beginning ✨</p>
+      <div id="archive-list"></div>
     </div>
   </div>
 
   <!-- Rain & Thunder Audio -->
-  <audio id="rain-sound" autoplay loop muted>
+  <audio id="rain-sound" loop>
     <source src="bgmusic.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Button for manual play -->
-  <button id="rain-btn">🎵 Click Me</button>
+  <!-- Button to start audio -->
+  <div id="rain-btn">🎵 Click me</div>
 
   <!-- Lightning overlay -->
   <div class="lightning" id="lightning"></div>
 
   <script>
     const rain = document.getElementById("rain-sound");
-    const rainBtn = document.getElementById("rain-btn");
+    const btn = document.getElementById("rain-btn");
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // Try autoplay muted
-      const playPromise = rain.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          // Unmute after 1.5s
-          setTimeout(() => {
-            rain.muted = false;
-            rain.volume = 0.4;
-          }, 1500);
-        }).catch(() => {
-          // If autoplay blocked → show button
-          rainBtn.style.display = "block";
-        });
-      }
-
-      // Manual button fallback
-      rainBtn.addEventListener("click", () => {
-        rain.muted = false;
-        rain.volume = 0.4;
-        rain.play();
-        rainBtn.style.display = "none";
+    btn.addEventListener("click", () => {
+      rain.volume = 0.4;
+      rain.play().then(() => {
+        btn.style.display = "none";
+      }).catch(err => {
+        console.log("Playback blocked:", err);
       });
-
-      // Generate raindrops
-      for (let i = 0; i < 100; i++) {
-        let drop = document.createElement("div");
-        drop.classList.add("raindrop");
-        drop.style.left = Math.random() * 100 + "vw";
-        drop.style.animationDuration = (0.5 + Math.random() * 0.7) + "s";
-        drop.style.animationDelay = Math.random() * 5 + "s";
-        document.body.appendChild(drop);
-      }
-
-      // Lightning flashes
-      const lightning = document.getElementById("lightning");
-      function flash() {
-        lightning.style.opacity = "1";
-        setTimeout(() => { lightning.style.opacity = "0"; }, 100);
-        if (Math.random() > 0.5) {
-          setTimeout(() => {
-            lightning.style.opacity = "1";
-            setTimeout(() => { lightning.style.opacity = "0"; }, 150);
-          }, 200);
-        }
-      }
-      // Random lightning interval
-      setInterval(() => {
-        if (Math.random() < 0.2) flash(); // 20% chance every 3s
-      }, 3000);
     });
+
+    // Generate raindrops
+    for (let i = 0; i < 100; i++) {
+      let drop = document.createElement("div");
+      drop.classList.add("raindrop");
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.animationDuration = (0.5 + Math.random() * 0.7) + "s";
+      drop.style.animationDelay = Math.random() * 5 + "s";
+      document.body.appendChild(drop);
+    }
+
+    // Lightning flashes
+    const lightning = document.getElementById("lightning");
+    function flash() {
+      lightning.style.opacity = "1";
+      setTimeout(() => { lightning.style.opacity = "0"; }, 100);
+      if (Math.random() > 0.5) {
+        setTimeout(() => {
+          lightning.style.opacity = "1";
+          setTimeout(() => { lightning.style.opacity = "0"; }, 150);
+        }, 200);
+      }
+    }
+    setInterval(() => {
+      if (Math.random() < 0.2) { // 20% chance every 3s
+        flash();
+      }
+    }, 3000);
+
+    // Letters data
+    const letters = [
+      {
+        date: "2025-08-22",
+        title: "Day 1 — August 22, 2025",
+        content: `<p>My dearest princess,</p><p> As I sit here with my broken leg, rotting away in bed, I think of you. I know right now you might be returning back home from your busy day of shopping. I hope you had fun? I hope you bought a whole lot of things my princess. </p>
+<p>Scratch that, you just told me you bought a lot of things. I love that for you. You deserve all the best things in this life. You're my sweetest, cutest little baby girl. </p>
+<p>I really don't know where I would be without you. I love you, so much. I know you are sometimes disappointed in me for not doing much. I am a man of inaction, but you my baby, you make me want to do everything I can to make things special for you. To take care of you, to love you and cherish you, and to let you know how much I love you. </p>
+<p>We're coming up on 3 years now of dating each other. Isn't that wild? It feels like a lifetime, but also it feels like we just started. You've changed my life for the better. You make me want to be a better man, for you. You deserve the best, and I feel like I've got a long way to go to be the man you deserve, but I will get there. This ain't a sob story. I will be the man you love, and you'll be with for the rest of your life. </p>
+<p>Anyways, this might be a little gay? I don't know. Hope you like this virtual space I got going for you my baby. Love you so much. </p>
+<p>I will keep doing this for as long as I can. And I'll keep loving you for much longer. </p>
+<p>With all my love</p>
+<p>Samsie</p>`
+      },
+      {
+        date: "2025-08-23",
+        title: "Day 2 — August 23, 2025",
+        content: `<p>My love,</p><p>This is Day 2. Each passing day, my words may change, but my heart stays the same: it belongs to you.</p><p>Forever yours,<br>Samsie</p>`
+      },
+      {
+        date: "2025-08-24",
+        title: "Day 3 — August 24, 2025",
+        content: `<p>My dearest princess,</p><p>It’s Day 3, and I’m still here writing to you. Every day feels like a chance to love you more, and somehow you keep giving me reasons to. Even when I think I’ve reached the peak, my heart surprises me — it grows a little bigger for you.</p><p>You’ve always been my safe place, and this little corner of the internet is my way of giving you something back. Just us, our space, our little secret tucked away between the rain and thunder.</p><p>When I imagine the future, I don’t see things or places — I see you. That’s all I’ll ever need.</p><p>With all my love,<br>Samsie</p>`
+      }
+    ];
+
+    const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
+
+    function getCurrentDay() {
+      const now = new Date();
+      let dayIndex = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+
+      // Before 6pm, still show previous day's letter
+      if (now.getHours() < 18) {
+        dayIndex -= 1;
+      }
+      return Math.max(0, dayIndex);
+    }
+
+    function loadLetter(dayIndex) {
+      const letterBox = document.getElementById("letter-box");
+      const note = document.getElementById("note");
+
+      if (dayIndex < letters.length) {
+        letterBox.innerHTML = `<h2>${letters[dayIndex].title}</h2>${letters[dayIndex].content}`;
+        note.textContent = "The next letter comes at 6pm tomorrow, my princess";
+      } else {
+        letterBox.innerHTML = `<h2>More letters coming soon</h2>`;
+        note.textContent = "The next letter comes at 6pm tomorrow, my princess";
+      }
+    }
+
+    function loadArchive(currentDay) {
+      const archive = document.getElementById("archive-list");
+      archive.innerHTML = "";
+      letters.forEach((letter, index) => {
+        if (index < currentDay) {
+          const link = document.createElement("a");
+          link.textContent = letter.title;
+          link.onclick = () => loadLetter(index);
+          archive.appendChild(link);
+        }
+      });
+    }
+
+    const currentDay = getCurrentDay();
+    loadLetter(currentDay);
+    loadArchive(currentDay);
   </script>
 </body>
 </html>
