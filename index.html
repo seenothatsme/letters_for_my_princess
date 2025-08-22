@@ -52,25 +52,6 @@
     .archive a:hover {
       text-decoration: underline;
     }
-    #rain-btn {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      padding: 0.5rem 1rem;
-      background-color: rgba(255, 255, 255, 0.8);
-      color: #0b3d2e;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'EB Garamond', serif;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-      display: none;
-      z-index: 3;
-    }
-    #rain-btn:hover {
-      background-color: rgba(255, 255, 255, 1);
-    }
 
     /* Rain animation */
     .raindrop {
@@ -86,7 +67,7 @@
       to { transform: translateY(100vh); }
     }
 
-    /* Lightning effect */
+    /* Lightning flash */
     .lightning {
       position: fixed;
       top: 0;
@@ -95,27 +76,18 @@
       height: 100%;
       background: white;
       opacity: 0;
+      z-index: 1;
       pointer-events: none;
-      z-index: 2;
-    }
-    .flash {
-      animation: flash 0.2s ease-in-out;
-    }
-    @keyframes flash {
-      0% { opacity: 0; }
-      10% { opacity: 0.8; }
-      30% { opacity: 0; }
-      50% { opacity: 0.6; }
-      100% { opacity: 0; }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <h1>💌 Letters for my Princess </h1>
+    <h1>💌 A Letter for my Princess</h1>
     <div class="letter-box">
       <h2>Day 1 — August 22, 2025</h2>
+      <p>My dearest princess,</p>
       <p> As I sit here with my broken leg, rotting away in bed, I think of you. I know right now you might be returning back home from your busy day of 	shopping. I hope you had fun? I hope you bought a whole lot of things my princess. </p>
 
 	<p>Scratch that, you just told me you bought a lot of things. I love that for you. You deserve all the best things in this life. You're my 	sweetest, cutest little baby girl. </p>
@@ -140,12 +112,10 @@
   </div>
 
   <!-- Rain & Thunder Audio -->
-  <audio id="rain-sound" autoplay loop>
+  <audio id="rain-sound" autoplay loop muted>
     <source src="rain-thunder.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-
-  <button id="rain-btn">🔊 Start Rain</button>
 
   <!-- Lightning overlay -->
   <div class="lightning" id="lightning"></div>
@@ -154,14 +124,11 @@
     const rain = document.getElementById("rain-sound");
     rain.volume = 0.4;
 
-    // Try autoplay, if blocked show button
     document.addEventListener("DOMContentLoaded", () => {
-      const playPromise = rain.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          document.getElementById("rain-btn").style.display = "block";
-        });
-      }
+      // Unmute after autoplay starts
+      setTimeout(() => {
+        rain.muted = false;
+      }, 1500);
 
       // Generate raindrops
       for (let i = 0; i < 100; i++) {
@@ -173,25 +140,26 @@
         document.body.appendChild(drop);
       }
 
-      // Lightning effect at random intervals
+      // Lightning flashes
       const lightning = document.getElementById("lightning");
-      function triggerLightning() {
-        lightning.classList.add("flash");
-        setTimeout(() => {
-          lightning.classList.remove("flash");
-        }, 200);
-        const nextFlash = Math.random() * 8000 + 4000; // 4s–12s random
-        setTimeout(triggerLightning, nextFlash);
+      function flash() {
+        lightning.style.opacity = "1";
+        setTimeout(() => { lightning.style.opacity = "0"; }, 100);
+        if (Math.random() > 0.5) {
+          setTimeout(() => {
+            lightning.style.opacity = "1";
+            setTimeout(() => { lightning.style.opacity = "0"; }, 150);
+          }, 200);
+        }
       }
-      setTimeout(triggerLightning, Math.random() * 5000 + 2000);
-    });
 
-    // Button to manually start
-    document.getElementById("rain-btn").addEventListener("click", () => {
-      rain.play();
-      document.getElementById("rain-btn").style.display = "none";
+      // Random lightning interval
+      setInterval(() => {
+        if (Math.random() < 0.2) { // 20% chance every 3s
+          flash();
+        }
+      }, 3000);
     });
   </script>
 </body>
 </html>
-
