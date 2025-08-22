@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letters for My Princess</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'EB Garamond', serif;
+      background-color: #0b3d2e;
+      color: #f4f1e8;
+      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .letter-box {
+      background-color: #f4f1e8;
+      color: #2c2c2c;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      margin-bottom: 0.5rem;
+    }
+    .note {
+      margin-top: 0;
+      font-style: italic;
+      color: #d8cfc4;
+      margin-bottom: 2.5rem;
+    }
+    .archive {
+      margin-top: 3.5rem;
+      padding: 1rem;
+      border: 1px solid #d8cfc4;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .archive a {
+      color: #a3d9a5;
+      text-decoration: none;
+      display: block;
+      margin: 0.3rem 0;
+    }
+    .archive a:hover {
+      text-decoration: underline;
+    }
+    #rain-btn {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      padding: 0.5rem 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #0b3d2e;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 3;
+    }
+    #rain-btn:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    /* Rain animation */
+    .raindrop {
+      position: fixed;
+      width: 2px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.5);
+      bottom: 100%;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
+
+    /* Lightning effect */
+    .lightning {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .flash {
+      animation: flash 0.2s ease-in-out;
+    }
+    @keyframes flash {
+      0% { opacity: 0; }
+      10% { opacity: 0.8; }
+      30% { opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>💌 Letters for my Princess </h1>
+    <div class="letter-box">
+      <h2>Day 1 — August 22, 2025</h2>
+      <p> As I sit here with my broken leg, rotting away in bed, I think of you. I know right now you might be returning back home from your busy day of 	shopping. I hope you had fun? I hope you bought a whole lot of things my princess. </p>
+
+	<p>Scratch that, you just told me you bought a lot of things. I love that for you. You deserve all the best things in this life. You're my 	sweetest, cutest little baby girl. </p>
+
+	<p>I really don't know where I would be without you. I love you, so much. I know you are sometimes disappointed in me for not doing much. I am a 	man of inaction, but you my baby, you make me want to do everything I can to make things special for you. To take care of you, to love you and 	cherish you, and to let you know how much I love you. </p>
+
+	<p>We're coming up on 3 years now of dating each other. Isn't that wild? It feels like a lifetime, but also it feels like we just started. You've 	changed my life for the better. You make me want to be a better man, for you. You deserve the best, and I feel like I've got a long way to go to 	be the man you deserve, but I will get there. This ain't a sob story. I will be the man you love, and you'll be with for the rest of your life. 	</p>
+
+	<p>Anyways, this might be a little gay? I don't know. Hope you like this virtual space I got going for you my baby. Love you so much. </p>
+
+	<p>I will keep doing this for as long as I can. And I'll keep loving you for much longer. </p>
+
+	<p>With all my love</p>
+	<p>Samsie</p>
+    </div>
+    <p class="note">Come back at 12pm tomorrow princess, for your new letter!</p>
+
+    <div class="archive">
+      <h3>📜 Archive</h3>
+      <p>No archived letters yet — this is just the beginning ✨</p>
+    </div>
+  </div>
+
+  <!-- Rain & Thunder Audio -->
+  <audio id="rain-sound" autoplay loop>
+    <source src="rain&thunder.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button id="rain-btn">🔊 Start Rain</button>
+
+  <!-- Lightning overlay -->
+  <div class="lightning" id="lightning"></div>
+
+  <script>
+    const rain = document.getElementById("rain-sound");
+    rain.volume = 0.4;
+
+    // Try autoplay, if blocked show button
+    document.addEventListener("DOMContentLoaded", () => {
+      const playPromise = rain.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          document.getElementById("rain-btn").style.display = "block";
+        });
+      }
+
+      // Generate raindrops
+      for (let i = 0; i < 100; i++) {
+        let drop = document.createElement("div");
+        drop.classList.add("raindrop");
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = (0.5 + Math.random() * 0.7) + "s";
+        drop.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(drop);
+      }
+
+      // Lightning effect at random intervals
+      const lightning = document.getElementById("lightning");
+      function triggerLightning() {
+        lightning.classList.add("flash");
+        setTimeout(() => {
+          lightning.classList.remove("flash");
+        }, 200);
+        const nextFlash = Math.random() * 8000 + 4000; // 4s–12s random
+        setTimeout(triggerLightning, nextFlash);
+      }
+      setTimeout(triggerLightning, Math.random() * 5000 + 2000);
+    });
+
+    // Button to manually start
+    document.getElementById("rain-btn").addEventListener("click", () => {
+      rain.play();
+      document.getElementById("rain-btn").style.display = "none";
+    });
+  </script>
+</body>
+</html>
