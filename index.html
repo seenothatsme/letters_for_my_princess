@@ -99,12 +99,28 @@
     #rain-btn:hover {
       background: #e1d9c9;
     }
+
+    /* Simulation indicator */
+    .simulation-notice {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff6b6b;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 12px;
+      z-index: 10;
+      display: none;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
+
   <div class="container">
-    <h1> Letters for my Princess 💌 </h1>
+    <h1>💌 A Letter for my Princess</h1>
     <div class="letter-box" id="letter-box">
       <!-- Dynamic letter content will load here -->
     </div>
@@ -113,6 +129,10 @@
     <div class="archive">
       <h3>📜 Archive</h3>
       <div id="archive-list"></div>
+    </div>
+    
+    <div id="back-to-current" style="margin-top: 2rem; display: none;">
+      <a style="color: #d8cfc4; font-weight: normal; cursor: pointer;">← Back to Current Letter</a>
     </div>
   </div>
 
@@ -186,12 +206,17 @@
       {
         date: "2025-08-23",
         title: "Day 2 — August 23, 2025",
-        content: `<p>My love,</p><p>This is Day 2. Each passing day, my words may change, but my heart stays the same: it belongs to you.</p><p>Forever yours,<br>Samsie</p>`
+        content: `<p>Hello my dearest little princess!</p>
+<p>I am sorry for our little spat last night. I really got upset about the fact that you couldn't spare some time for me. I think I came from a place of being anxious over where you were, and a little bit of feeling like I was abandoned. I know, maybe it was a little intense. I don't expect you to keep texting me while everyone's partying and you're out. I know that's not right. Just, it was a combination of ugly feelings. I am sorry for how I behaved and how I expressed my feelings.</p>
+<p>I love you. I wanted last night to be perfect. I poured my heart into making this project happen. It was a lot of back and forth and I only did it because I love you. I thought you'd best appreciate these colours and vibe. Don't they remind you of a nice deep forest-like place? A perfect place for my little baby princess to perch and rest.</p>
+<p>I want to remind you again, I love you so much. More than I knew I could love anyone. I wasn't so anxious and dare I say, needy, before this. I'd gotten used to being alone, soothing myself, keeping busy when you weren't around. I don't know if I loved that so much, but it was what it was. With you, I've also blossomed into this person. A more vulnerable, in his feelings man with some needs and wants. I'm sorry to make you feel like crap last night and imposing my negative reactions to your actions on you, even when you weren't ready for it. I was feeling very unsettled.</p>
+<p>I'm sorry baby. I love you so so so much my jaana. More than you could ever think.</p>
+<p>Always yours, forever and more<br>Samsiedoodie</p>`
       },
       {
         date: "2025-08-24",
         title: "Day 3 — August 24, 2025",
-        content: `<p>My dearest princess,</p><p>It’s Day 3, and I’m still here writing to you. Every day feels like a chance to love you more, and somehow you keep giving me reasons to. Even when I think I’ve reached the peak, my heart surprises me — it grows a little bigger for you.</p><p>You’ve always been my safe place, and this little corner of the internet is my way of giving you something back. Just us, our space, our little secret tucked away between the rain and thunder.</p><p>When I imagine the future, I don’t see things or places — I see you. That’s all I’ll ever need.</p><p>With all my love,<br>Samsie</p>`
+        content: `<p>My dearest princess,</p><p>It's Day 3, and I'm still here writing to you. Every day feels like a chance to love you more, and somehow you keep giving me reasons to. Even when I think I've reached the peak, my heart surprises me — it grows a little bigger for you.</p><p>You've always been my safe place, and this little corner of the internet is my way of giving you something back. Just us, our space, our little secret tucked away between the rain and thunder.</p><p>When I imagine the future, I don't see things or places — I see you. That's all I'll ever need.</p><p>With all my love,<br>Samsie</p>`
       }
     ];
 
@@ -208,36 +233,49 @@
       return Math.max(0, dayIndex);
     }
 
-    function loadLetter(dayIndex) {
+    function loadLetter(dayIndex, isFromArchive = false) {
       const letterBox = document.getElementById("letter-box");
       const note = document.getElementById("note");
+      const backButton = document.getElementById("back-to-current");
 
       if (dayIndex < letters.length) {
         letterBox.innerHTML = `<h2>${letters[dayIndex].title}</h2>${letters[dayIndex].content}`;
-        note.textContent = "The next letter comes at 6pm tomorrow, my princess 😚";
+        note.textContent = "The next letter comes at 6pm tomorrow, my princess";
       } else {
         letterBox.innerHTML = `<h2>More letters coming soon</h2>`;
-        note.textContent = "The next letter comes at 6pm tomorrow, my princess 😚";
+        note.textContent = "The next letter comes at 6pm tomorrow, my princess";
+      }
+
+      // Show/hide back button based on whether viewing archived letter
+      if (isFromArchive) {
+        backButton.style.display = "block";
+      } else {
+        backButton.style.display = "none";
       }
     }
 
     function loadArchive(currentDay) {
       const archive = document.getElementById("archive-list");
+      const backButton = document.getElementById("back-to-current");
+      
       archive.innerHTML = "";
       letters.forEach((letter, index) => {
         if (index < currentDay) {
           const link = document.createElement("a");
           link.textContent = letter.title;
-          link.onclick = () => loadLetter(index);
+          link.onclick = () => loadLetter(index, true); // Pass true to indicate from archive
           archive.appendChild(link);
         }
       });
+
+      // Set up back button functionality
+      backButton.onclick = () => loadLetter(currentDay, false);
     }
 
     const currentDay = getCurrentDay();
+    console.log("Current day:", currentDay);
     loadLetter(currentDay);
     loadArchive(currentDay);
   </script>
 </body>
 </html>
-
