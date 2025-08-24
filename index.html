@@ -53,7 +53,6 @@
     .archive a:hover {
       text-decoration: underline;
     }
-
     /* Rain animation */
     .raindrop {
       position: fixed;
@@ -67,7 +66,6 @@
     @keyframes fall {
       to { transform: translateY(100vh); }
     }
-
     /* Lightning flash */
     .lightning {
       position: fixed;
@@ -80,7 +78,6 @@
       z-index: 1;
       pointer-events: none;
     }
-
     /* Audio Button */
     #rain-btn {
       position: fixed;
@@ -99,7 +96,6 @@
     #rain-btn:hover {
       background: #e1d9c9;
     }
-
     /* Simulation indicator */
     .simulation-notice {
       position: fixed;
@@ -117,15 +113,12 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-
   <div class="container">
     <h1>💌 A Letter for my Princess</h1>
     <div class="letter-box" id="letter-box">
       <!-- Dynamic letter content will load here -->
     </div>
     <p class="note" id="note"></p>
-
     <div class="archive">
       <h3>📜 Archive</h3>
       <div id="archive-list"></div>
@@ -135,32 +128,26 @@
       <a style="color: #d8cfc4; font-weight: normal; cursor: pointer;">← Back to Current Letter</a>
     </div>
   </div>
-
   <!-- Rain & Thunder Audio -->
   <audio id="rain-sound" loop>
     <source src="bgmusic.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-
   <!-- Button to start audio -->
   <div id="rain-btn">🎵 Click me</div>
-
   <!-- Lightning overlay -->
   <div class="lightning" id="lightning"></div>
-
   <script>
     const rain = document.getElementById("rain-sound");
     const btn = document.getElementById("rain-btn");
-
     btn.addEventListener("click", () => {
       rain.volume = 0.4;
       rain.play().then(() => {
         btn.style.display = "none";
       }).catch(err => {
-        console.log("Playback blocked:", err);
+        console.log("Playbook blocked:", err);
       });
     });
-
     // Generate raindrops
     for (let i = 0; i < 100; i++) {
       let drop = document.createElement("div");
@@ -170,7 +157,6 @@
       drop.style.animationDelay = Math.random() * 5 + "s";
       document.body.appendChild(drop);
     }
-
     // Lightning flashes
     const lightning = document.getElementById("lightning");
     function flash() {
@@ -188,7 +174,6 @@
         flash();
       }
     }, 3000);
-
     // Letters data
     const letters = [
       {
@@ -216,28 +201,50 @@
       {
         date: "2025-08-24",
         title: "Day 3 — August 24, 2025",
-        content: `<p>My dearest princess,</p><p>It's Day 3, and I'm still here writing to you. Every day feels like a chance to love you more, and somehow you keep giving me reasons to. Even when I think I've reached the peak, my heart surprises me — it grows a little bigger for you.</p><p>You've always been my safe place, and this little corner of the internet is my way of giving you something back. Just us, our space, our little secret tucked away between the rain and thunder.</p><p>When I imagine the future, I don't see things or places — I see you. That's all I'll ever need.</p><p>With all my love,<br>Samsie</p>`
+        content: `<p>Lots of hugs and kisses to you princesss</p>
+<p>I can't believe its just one day to our anniversary. That's crazy, isn't it? I love you so much! Its so hard to say how much I love you because I always fail to quantify it. It scares me, intimidates me. I love you so so so so so so so much.</p>
+<p>I've truly and wholly been positively influenced by the girlfriend effect. You have come into my life, and made me a fuller, better man for it. Thank you. For having the patience to deal with this caveman and making me the sweet boy I am today. Before you say it, I know, I know I've got a long way to go to be better. But like, what's the rush, right? I've got a lifetime of learning and growing with you.</p>
+<p>Thank you also, for sending me reels that educate me on how to be better with you. The things you sent me today were really impactful. I'll be better in how I show up in difficult situations. I'll be better in taking care of you and your emotions. I'll be gentler and softer, because you are my sweet sweet little baby. I love you so much. You're the sweetest, bestest thing in my life. Showing up for you, and making you happy in our relationship will most likely be the best thing I ever do in my life. It's my life's purpose almost. And I love it. I couldn't ask for anything else.</p>
+<p>I am so excited for tomorrow my baby. I love you so much. Here's to more life, more love, more crazy moments, and a whole lotta lovin 😚😚😚</p>
+<p>Yours, and only yours forever<br>Samsiedoodle</p>`
       }
     ];
-
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
-
     function getCurrentDay() {
       const now = new Date();
-      let dayIndex = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
-
-      // Before 6pm, still show previous day's letter
-      if (now.getHours() < 18) {
-        dayIndex -= 1;
+      
+      // Manual day calculation based on current date
+      const currentDate = now.getDate();
+      const currentHour = now.getHours();
+      
+      console.log("Current date:", currentDate);
+      console.log("Current hour:", currentHour);
+      
+      let dayIndex = 0; // Default to Day 1
+      
+      if (currentDate === 22) {
+        // Aug 22 - Day 1 shows at 6pm or later
+        dayIndex = currentHour >= 18 ? 0 : -1;
+      } else if (currentDate === 23) {
+        // Aug 23 - Day 2 shows at 6pm or later, Day 1 before 6pm
+        dayIndex = currentHour >= 18 ? 1 : 0;
+      } else if (currentDate === 24) {
+        // Aug 24 - Day 3 shows at 6pm or later, Day 2 before 6pm
+        dayIndex = currentHour >= 18 ? 2 : 1;
+      } else if (currentDate > 24) {
+        // Future dates
+        const daysAfter24 = currentDate - 24;
+        dayIndex = currentHour >= 18 ? (2 + daysAfter24) : (1 + daysAfter24);
       }
+      
+      console.log("Calculated dayIndex:", dayIndex);
+      
       return Math.max(0, dayIndex);
     }
-
     function loadLetter(dayIndex, isFromArchive = false) {
       const letterBox = document.getElementById("letter-box");
       const note = document.getElementById("note");
       const backButton = document.getElementById("back-to-current");
-
       if (dayIndex < letters.length) {
         letterBox.innerHTML = `<h2>${letters[dayIndex].title}</h2>${letters[dayIndex].content}`;
         note.textContent = "The next letter comes at 6pm tomorrow, my princess";
@@ -245,7 +252,6 @@
         letterBox.innerHTML = `<h2>More letters coming soon</h2>`;
         note.textContent = "The next letter comes at 6pm tomorrow, my princess";
       }
-
       // Show/hide back button based on whether viewing archived letter
       if (isFromArchive) {
         backButton.style.display = "block";
@@ -253,7 +259,6 @@
         backButton.style.display = "none";
       }
     }
-
     function loadArchive(currentDay) {
       const archive = document.getElementById("archive-list");
       const backButton = document.getElementById("back-to-current");
@@ -267,11 +272,9 @@
           archive.appendChild(link);
         }
       });
-
       // Set up back button functionality
       backButton.onclick = () => loadLetter(currentDay, false);
     }
-
     const currentDay = getCurrentDay();
     console.log("Current day:", currentDay);
     loadLetter(currentDay);
