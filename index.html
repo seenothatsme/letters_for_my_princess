@@ -207,6 +207,22 @@
 <p>Thank you also, for sending me reels that educate me on how to be better with you. The things you sent me today were really impactful. I'll be better in how I show up in difficult situations. I'll be better in taking care of you and your emotions. I'll be gentler and softer, because you are my sweet sweet little baby. I love you so much. You're the sweetest, bestest thing in my life. Showing up for you, and making you happy in our relationship will most likely be the best thing I ever do in my life. It's my life's purpose almost. And I love it. I couldn't ask for anything else.</p>
 <p>I am so excited for tomorrow my baby. I love you so much. Here's to more life, more love, more crazy moments, and a whole lotta lovin 😚😚😚</p>
 <p>Yours, and only yours forever<br>Samsiedoodle</p>`
+      },
+      {
+        date: "2025-08-25",
+        title: "Day 4 — August 25, 2025",
+        content: `<p>Hello my babenellian</p>
+<p>I love you so much. Today has been so cute, I can't. I've been a little sleepy however, missed my 6pm mark. But you'll allow me a little leeway, won't you?</p>
+<p>HAPPY 3 YEARS ANNIVERSARY BABY! I miss you a lot, but I've been relatively okay. I've been reliving some of our memories, and man, it has been so great having you to share my life with. I cannot wait to form so more memories with you my baby.</p>
+<p>I love your new nails so much! They're so much cuter than the last ones, and they suit you so well! I am sad I'm missing out on holding and kissing them, but you can get those done again! Hehe. Maybe next time you could also try a different colour. Maybe a sage green? Or a black? I don't know, you decide.</p>
+<p>Have fun tonight baby. May the stars glow extra bright for you today. May they reflect the love I have for you in my heart. You're my heart, you're my light. You're my everything.</p>
+<p>Islands in the stream<br>
+That is what we are<br>
+No one in between<br>
+How can we be wrong?<br>
+Sail away with me<br>
+To another world</p>
+<p>Love you so much, and always yours<br>Samshuddin</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -231,10 +247,13 @@
       } else if (currentDate === 24) {
         // Aug 24 - Day 3 shows at 6pm or later, Day 2 before 6pm
         dayIndex = currentHour >= 18 ? 2 : 1;
-      } else if (currentDate > 24) {
+      } else if (currentDate === 25) {
+        // Aug 25 - Day 4 shows at 6pm or later, Day 3 before 6pm
+        dayIndex = currentHour >= 18 ? 3 : 2;
+      } else if (currentDate > 25) {
         // Future dates
-        const daysAfter24 = currentDate - 24;
-        dayIndex = currentHour >= 18 ? (2 + daysAfter24) : (1 + daysAfter24);
+        const daysAfter25 = currentDate - 25;
+        dayIndex = currentHour >= 18 ? (3 + daysAfter25) : (2 + daysAfter25);
       }
       
       console.log("Calculated dayIndex:", dayIndex);
