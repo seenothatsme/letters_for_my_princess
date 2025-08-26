@@ -223,6 +223,16 @@ How can we be wrong?<br>
 Sail away with me<br>
 To another world</p>
 <p>Love you so much, and always yours<br>Samshuddin</p>`
+      },
+      {
+        date: "2025-08-26",
+        title: "Day 5 — August 26, 2025",
+        content: `<p>Hi baby</p>
+<p>I'm sorry about the way I reacted to things today. I miss you, and I love you, and only you.</p>
+<p>I hope we can talk to each other about this again over clearer heads. I still feel like you don't listen to me enough and I get put into a high pressure situation where I say things that I don't even want to, or mean to.</p>
+<p>I am sorry for hurting you with my mean words today. I hope you can come back and talk to me again, in a better, more considerate way. I've been reflecting on our communication patterns, and I realize I need to do better at expressing my needs without putting pressure on you. When I feel unheard or misunderstood, I sometimes react from a place of frustration rather than love, and that's not okay. The pressure I felt doesn't excuse the hurtful words that came out of my mouth.</p>
+<p>I only want you, and I only need you. I'm here whenever you're ready to talk. There's no rush, no pressure - just me, waiting with love and hope that we can move forward together, stronger than before. You are my everything, my jaan. I love you deeply and completely.</p>
+<p>Lots of love<br>Samsie</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -250,10 +260,13 @@ To another world</p>
       } else if (currentDate === 25) {
         // Aug 25 - Day 4 shows at 6pm or later, Day 3 before 6pm
         dayIndex = currentHour >= 18 ? 3 : 2;
-      } else if (currentDate > 25) {
+      } else if (currentDate === 26) {
+        // Aug 26 - Day 5 shows at 6pm or later, Day 4 before 6pm
+        dayIndex = currentHour >= 18 ? 4 : 3;
+      } else if (currentDate > 26) {
         // Future dates
-        const daysAfter25 = currentDate - 25;
-        dayIndex = currentHour >= 18 ? (3 + daysAfter25) : (2 + daysAfter25);
+        const daysAfter26 = currentDate - 26;
+        dayIndex = currentHour >= 18 ? (4 + daysAfter26) : (3 + daysAfter26);
       }
       
       console.log("Calculated dayIndex:", dayIndex);
