@@ -233,6 +233,16 @@ To another world</p>
 <p>I am sorry for hurting you with my mean words today. I hope you can come back and talk to me again, in a better, more considerate way. I've been reflecting on our communication patterns, and I realize I need to do better at expressing my needs without putting pressure on you. When I feel unheard or misunderstood, I sometimes react from a place of frustration rather than love, and that's not okay. The pressure I felt doesn't excuse the hurtful words that came out of my mouth.</p>
 <p>I only want you, and I only need you. I'm here whenever you're ready to talk. There's no rush, no pressure - just me, waiting with love and hope that we can move forward together, stronger than before. You are my everything, my jaan. I love you deeply and completely.</p>
 <p>Lots of love<br>Samsie</p>`
+      },
+      {
+        date: "2025-08-27",
+        title: "Day 6 — August 27, 2025",
+        content: `<p>Hi my little princesss!</p>
+<p>I love you so much ya. I miss you so much.</p>
+<p>You look so gorgeous. I saw you on video call fully, and I was like what the fuck, I was made quite by how pretty you looked. I stood still, and you know how hard that is to do. Your hair, your brows, your face, all of it are so fucking pretty.</p>
+<p>I'm so happy for you, for your Goa trip. You've been wanting to go for a trip like this, especially the solo travelling part, and now you're getting it! I'm so excited. I know you'll take care of yourself and all, but still, please don't do anything stupid. Don't go into shady areas and keep your wits by yourself. And come back soon and safe, okay?</p>
+<p>I'll be missing you so much. But you have your fun there okay? Don't think too much about me and everything else. We'll all be fine. You have fun, and make precious little memories there. Okay? We'll also go there again, all by ourselves, and you can show me all the places you love. I can't wait to see you my love.</p>
+<p>All my love<br>Samsie</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -263,10 +273,13 @@ To another world</p>
       } else if (currentDate === 26) {
         // Aug 26 - Day 5 shows at 6pm or later, Day 4 before 6pm
         dayIndex = currentHour >= 18 ? 4 : 3;
-      } else if (currentDate > 26) {
+      } else if (currentDate === 27) {
+        // Aug 27 - Day 6 shows at 6pm or later, Day 5 before 6pm
+        dayIndex = currentHour >= 18 ? 5 : 4;
+      } else if (currentDate > 27) {
         // Future dates
-        const daysAfter26 = currentDate - 26;
-        dayIndex = currentHour >= 18 ? (4 + daysAfter26) : (3 + daysAfter26);
+        const daysAfter27 = currentDate - 27;
+        dayIndex = currentHour >= 18 ? (5 + daysAfter27) : (4 + daysAfter27);
       }
       
       console.log("Calculated dayIndex:", dayIndex);
