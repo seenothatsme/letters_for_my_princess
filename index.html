@@ -243,6 +243,17 @@ To another world</p>
 <p>I'm so happy for you, for your Goa trip. You've been wanting to go for a trip like this, especially the solo travelling part, and now you're getting it! I'm so excited. I know you'll take care of yourself and all, but still, please don't do anything stupid. Don't go into shady areas and keep your wits by yourself. And come back soon and safe, okay?</p>
 <p>I'll be missing you so much. But you have your fun there okay? Don't think too much about me and everything else. We'll all be fine. You have fun, and make precious little memories there. Okay? We'll also go there again, all by ourselves, and you can show me all the places you love. I can't wait to see you my love.</p>
 <p>All my love<br>Samsie</p>`
+      },
+      {
+        date: "2025-08-28",
+        title: "Day 7 — August 28, 2025",
+        content: `<p>Hello my little baby</p>
+<p>What a day, huh? You've gotten such a crazy story you've got for today. I've never known anyone also who's gotten a flight of their redirected to somewhere else. You've been through it now. Haha. How do you feel? If I were you, I'd use this story when we meet our friends. It's a unique experience to have had.</p>
+<p>I'm sorry I'm late today. I've had a rollercoaster of a day too. I never imagines to get these tickets and now that I have, I've worked myself into a panic, and I've been feeling drained. Its crazy.</p>
+<p>Anyways, I just wanted to tell you that I know you've planned to go to Goa with a daily plan, and I know you, that you'd be upset if things didn't go the way you wanted them to be. I know you, and you can be hard on yourself. Don't feel like you have to maximize each and every day of your time there baby. Don't ride yourself so hard my little baby. I want you to take care of yourself, and stay safe. I guess I'm also anxious about you being there alone, by yourself.</p>
+<p>I miss you so much. I wish I could just fly over there right about now, and keep you safe, warm and cared for.</p>
+<p>I love you so much my little Goan baby girl 😚</p>
+<p>Yours always<br>Netaaaji</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -276,10 +287,13 @@ To another world</p>
       } else if (currentDate === 27) {
         // Aug 27 - Day 6 shows at 6pm or later, Day 5 before 6pm
         dayIndex = currentHour >= 18 ? 5 : 4;
-      } else if (currentDate > 27) {
+      } else if (currentDate === 28) {
+        // Aug 28 - Day 7 shows at 6pm or later, Day 6 before 6pm
+        dayIndex = currentHour >= 18 ? 6 : 5;
+      } else if (currentDate > 28) {
         // Future dates
-        const daysAfter27 = currentDate - 27;
-        dayIndex = currentHour >= 18 ? (5 + daysAfter27) : (4 + daysAfter27);
+        const daysAfter28 = currentDate - 28;
+        dayIndex = currentHour >= 18 ? (6 + daysAfter28) : (5 + daysAfter28);
       }
       
       console.log("Calculated dayIndex:", dayIndex);
