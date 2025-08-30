@@ -265,6 +265,16 @@ To another world</p>
 <p>And then how you insist na that you're not asleep. Even though I can witness you falling asleep right in front of me? I guess we're both shameless like that. I love how we just get along like that, mimicking each other's bullshit. May we never change.</p>
 <p>Stay safe haan baby. I want you back asap. Always keep me around and love me how only you can.</p>
 <p>Madly, crazily in love with you<br>Samsiedoodiepoopaa</p>`
+      },
+      {
+        date: "2025-08-30",
+        title: "Day 9 — August 30, 2025",
+        content: `<p>Hi my little princess</p>
+<p>I was going to write you a letter telling you how upset I was at you, but I can't be upset at you for long anyways. You're my sweet little honeybuns no?</p>
+<p>Anyways, I'm so glad you decided to go get breakfast and lunch outside today. It must be nice getting all that Goan sun and food in you. I so want to go on all these adventures with you. It'd so freaking cute to toil around on a scooty with you. We'll go haan. Go recce all the cute places with the good food.</p>
+<p>I'm holding it down here. I miss you a lot. I'll be counting down the days till you come back and I can hold you in my arms again. I love you so much. I miss you so much. It now feels like an eternity since I've been held by you my jaan. Can you find a way to make these days go quicker and you come back to me quicker-er.</p>
+<p>No but seriously tho, I want you to enjoy your time there as much as you can. Have fun, and make the cutest of memories.</p>
+<p>Always your cheerleader,<br>Samsiedoodie</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -304,10 +314,13 @@ To another world</p>
       } else if (currentDate === 29) {
         // Aug 29 - Day 8 shows at 6pm or later, Day 7 before 6pm
         dayIndex = currentHour >= 18 ? 7 : 6;
-      } else if (currentDate > 29) {
+      } else if (currentDate === 30) {
+        // Aug 30 - Day 9 shows at 6pm or later, Day 8 before 6pm
+        dayIndex = currentHour >= 18 ? 8 : 7;
+      } else if (currentDate > 30) {
         // Future dates
-        const daysAfter29 = currentDate - 29;
-        dayIndex = currentHour >= 18 ? (7 + daysAfter29) : (6 + daysAfter29);
+        const daysAfter30 = currentDate - 30;
+        dayIndex = currentHour >= 18 ? (8 + daysAfter30) : (7 + daysAfter30);
       }
       
       console.log("Calculated dayIndex:", dayIndex);
