@@ -283,54 +283,76 @@ To another world</p>
 <p>I missed you so much last night. You have no idea. I know you were having fun and living your best life, but I don't like you being away from me for so long. I know its selfish of me to want you to all to myself all the time. Maybe I'm a little insecure, and I miss you so much. I can't wait to be with you ya. It gets boring and bleak without you.</p>
 <p>I also don't do much else. All these days mostly I've been laying around and playing. I feel weird. I haven't felt the wind or the outdoors in such a long time. It makes you go a little crazy. All confined like that.</p>
 <p>I can't wait to count down the days where I can be with you again. I'm sorry I get a little upset with you when you're just there having fun with your friends. I know its not fair to you. I love you. I want you to have all the fun, and all the memories. I'll be here, always, whenever you need me. I'm yours, I can wait patiently.</p>
-<p>Baby, I don't know what exactly it is that I've done recently to make you feel like I'm going to do something shady, but trust me, I'm not. I only want you. You're the only girl I want, that pleases my heart, that soothes my soul. You're the only one worth chasing. You light my fire, you calm my storms. I want you, and I need you, for the rest of our lives, and even beyond. You're my only one, hmm? I love you. I'm sorry I make you feel so crazy sometimes, like you have to chase me and do detective work. Be my little baby girl, and enjoy your time in peace. I'll be your good little boy, waiting for you to come back and hug me, and love you so much.</p> 
 <p>Forever yours, and only yours<br>Samsie</p>`
+      },
+      {
+        date: "2025-09-01",
+        title: "Day 11 — September 1, 2025",
+        content: `<p>Hi my little baby girl</p>
+<p>I miss you so much. Like, today has been so just dull and colourless. I've been sleepy and things just have been so boring without you. You're the colour in my life, the joy, the meaning. I miss your presence in my life.</p>
+<p>I am not trying to make you feel guilty, or feel like an asshole when I say this. I'm just letting you know how much I miss you, and how it feels like without you. I know you're there to have fun and do your thing. I guess I just miss you a lot more because my life otherwise right now is empty. I don't have anything that really keeps me busy and distracted from the fact that you're not around anymore. I hate it.</p>
+<p>Also baby, please forgive me na? Come talk to me, we'll fix this. Love me, laugh around me. Tell me about your days, your joys, the memories you're making. I want to know it all! I hope you're also eating well and taking good care of yourself. Please don't stop doing that my jaan.</p>
+<p>Also, this is the song from that earlier post I made about you that Instagram seems to have removed - https://www.youtube.com/watch?v=9ZEURntrQOg<br>I remember you were asking me about it. Here you go.</p>
+<p>I hope you miss me as much as I miss you.</p>
+<p>Yours, always and forever<br>Samsie</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
     function getCurrentDay() {
       const now = new Date();
       
-      // Manual day calculation based on current date
+      // Manual day calculation based on current date and month
       const currentDate = now.getDate();
+      const currentMonth = now.getMonth(); // 7 = August, 8 = September (0-indexed)
       const currentHour = now.getHours();
       
       console.log("Current date:", currentDate);
+      console.log("Current month:", currentMonth);
       console.log("Current hour:", currentHour);
       
       let dayIndex = 0; // Default to Day 1
       
-      if (currentDate === 22) {
-        // Aug 22 - Day 1 shows at 6pm or later
-        dayIndex = currentHour >= 18 ? 0 : -1;
-      } else if (currentDate === 23) {
-        // Aug 23 - Day 2 shows at 6pm or later, Day 1 before 6pm
-        dayIndex = currentHour >= 18 ? 1 : 0;
-      } else if (currentDate === 24) {
-        // Aug 24 - Day 3 shows at 6pm or later, Day 2 before 6pm
-        dayIndex = currentHour >= 18 ? 2 : 1;
-      } else if (currentDate === 25) {
-        // Aug 25 - Day 4 shows at 6pm or later, Day 3 before 6pm
-        dayIndex = currentHour >= 18 ? 3 : 2;
-      } else if (currentDate === 26) {
-        // Aug 26 - Day 5 shows at 6pm or later, Day 4 before 6pm
-        dayIndex = currentHour >= 18 ? 4 : 3;
-      } else if (currentDate === 27) {
-        // Aug 27 - Day 6 shows at 6pm or later, Day 5 before 6pm
-        dayIndex = currentHour >= 18 ? 5 : 4;
-      } else if (currentDate === 28) {
-        // Aug 28 - Day 7 shows at 6pm or later, Day 6 before 6pm
-        dayIndex = currentHour >= 18 ? 6 : 5;
-      } else if (currentDate === 29) {
-        // Aug 29 - Day 8 shows at 6pm or later, Day 7 before 6pm
-        dayIndex = currentHour >= 18 ? 7 : 6;
-      } else if (currentDate === 30) {
-        // Aug 30 - Day 9 shows at 6pm or later, Day 8 before 6pm
-        dayIndex = currentHour >= 18 ? 8 : 7;
-      } else if (currentDate > 30) {
-        // Future dates
-        const daysAfter30 = currentDate - 30;
-        dayIndex = currentHour >= 18 ? (8 + daysAfter30) : (7 + daysAfter30);
+      if (currentMonth === 7) { // August
+        if (currentDate === 22) {
+          // Aug 22 - Day 1 shows at 6pm or later
+          dayIndex = currentHour >= 18 ? 0 : -1;
+        } else if (currentDate === 23) {
+          // Aug 23 - Day 2 shows at 6pm or later, Day 1 before 6pm
+          dayIndex = currentHour >= 18 ? 1 : 0;
+        } else if (currentDate === 24) {
+          // Aug 24 - Day 3 shows at 6pm or later, Day 2 before 6pm
+          dayIndex = currentHour >= 18 ? 2 : 1;
+        } else if (currentDate === 25) {
+          // Aug 25 - Day 4 shows at 6pm or later, Day 3 before 6pm
+          dayIndex = currentHour >= 18 ? 3 : 2;
+        } else if (currentDate === 26) {
+          // Aug 26 - Day 5 shows at 6pm or later, Day 4 before 6pm
+          dayIndex = currentHour >= 18 ? 4 : 3;
+        } else if (currentDate === 27) {
+          // Aug 27 - Day 6 shows at 6pm or later, Day 5 before 6pm
+          dayIndex = currentHour >= 18 ? 5 : 4;
+        } else if (currentDate === 28) {
+          // Aug 28 - Day 7 shows at 6pm or later, Day 6 before 6pm
+          dayIndex = currentHour >= 18 ? 6 : 5;
+        } else if (currentDate === 29) {
+          // Aug 29 - Day 8 shows at 6pm or later, Day 7 before 6pm
+          dayIndex = currentHour >= 18 ? 7 : 6;
+        } else if (currentDate === 30) {
+          // Aug 30 - Day 9 shows at 6pm or later, Day 8 before 6pm
+          dayIndex = currentHour >= 18 ? 8 : 7;
+        } else if (currentDate === 31) {
+          // Aug 31 - Day 10 shows at 6pm or later, Day 9 before 6pm
+          dayIndex = currentHour >= 18 ? 9 : 8;
+        }
+      } else if (currentMonth === 8) { // September
+        if (currentDate === 1) {
+          // Sep 1 - Day 11 shows at 6pm or later, Day 10 before 6pm
+          dayIndex = currentHour >= 18 ? 10 : 9;
+        } else if (currentDate > 1) {
+          // Sep 2+ - calculate days after Sep 1
+          const daysAfterSep1 = currentDate - 1;
+          dayIndex = currentHour >= 18 ? (10 + daysAfterSep1) : (9 + daysAfterSep1);
+        }
       }
       
       console.log("Calculated dayIndex:", dayIndex);
@@ -378,4 +400,3 @@ To another world</p>
   </script>
 </body>
 </html>
-
