@@ -307,6 +307,16 @@ To another world</p>
 <p>I know the diagnosis wasn't too substantial, but let's see ya. I'll rest my leg and I'll be okay only baby. Will you also tell your parents about what happened at the doctor's today? Thanks!</p>
 <p>I love you so much ya. I miss you a lot. Come back soon na jaan. I miss you a lot. Very much.</p>
 <p>Yours forevermore, and only yours<br>Samsiedoodie</p>`
+      },
+      {
+        date: "2025-09-03",
+        title: "Day 13 — September 3, 2025",
+        content: `<p>Hi jaana!</p>
+<p>I'm sorry how I handled that situation with your shock about my leg earlier. In that moment I needed your help to figure things out as everything else was just overwhelming. I needed your help in finding my way through all of this. But I should have been better. Remembered that all you needed was some loving, and taking care of. Some petting and some niceness, and I didn't do any of that. That's my fault, all mine.</p>
+<p>I still dont know how I'm going to deal with all this. Anish offered me to work from home for a week or so? His words not mine. I don't know yet what I'm going to do. More I think about it, more I get overwhelmed.</p>
+<p>I love you so much. I can't wait to be with you. I'll take the risk of going out to work so that I can come see you. I hope you're having fun my baby. Have fun at that party, but please be safe, okay?</p>
+<p>I love you so much.</p>
+<p>Yours, and only yours<br>Samsiedoodiepoopie</p>`
       }
     ];
     const startDate = new Date("2025-08-22T18:00:00"); // Day 1 release date 6pm
@@ -393,8 +403,11 @@ To another world</p>
       const archive = document.getElementById("archive-list");
       const backButton = document.getElementById("back-to-current");
       
+      console.log("Loading archive with currentDay:", currentDay);
+      
       archive.innerHTML = "";
       letters.forEach((letter, index) => {
+        console.log(`Letter ${index}: ${letter.title}, showing: ${index < currentDay}`);
         if (index < currentDay) {
           const link = document.createElement("a");
           link.textContent = letter.title;
