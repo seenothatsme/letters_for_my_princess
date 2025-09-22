@@ -619,6 +619,8 @@ To another world</p>
           // Sep 2+ - calculate days after Sep 1
           const daysAfterSep1 = currentDate - 1;
           dayIndex = currentHour >= 18 ? (10 + daysAfterSep1) : (9 + daysAfterSep1);
+          // Cap at maximum available letters
+          dayIndex = Math.min(dayIndex, letters.length - 1);
         }
       }
       
@@ -670,6 +672,7 @@ To another world</p>
   </script>
 </body>
 </html>
+
 
 
 
